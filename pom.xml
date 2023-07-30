@@ -15,6 +15,7 @@
 
   <modules>
     <module>account</module>
+    <module>transaction</module>
   </modules>
 
 </project>
