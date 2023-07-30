@@ -7,13 +7,14 @@ import com.microbank.account.domain.valueobject.Id;
 
 import static com.microbank.account.application.exception.NotFoundException.*;
 
-public class GetAccountService {
+public class GetAccountService implements IGetAccountService {
     private final IAccountRepository accountRepository;
 
     public GetAccountService(IAccountRepository accountRepository) {
         this.accountRepository = accountRepository;
     }
 
+    @Override
     public Account getAccount(GetAccountQuery query) {
         long id = query.accountId();
 

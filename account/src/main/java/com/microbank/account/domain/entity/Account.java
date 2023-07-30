@@ -7,6 +7,7 @@ import lombok.Getter;
 
 import java.util.Objects;
 
+@Getter
 @AllArgsConstructor
 public class Account {
     Id id;

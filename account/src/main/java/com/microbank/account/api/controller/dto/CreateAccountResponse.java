@@ -1,4 +1,4 @@
 package com.microbank.account.api.controller.dto;
 
-public class CreateAccountResponse {
+public record CreateAccountResponse() {
 }
