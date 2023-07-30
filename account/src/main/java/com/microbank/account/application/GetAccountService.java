@@ -5,7 +5,7 @@ import com.microbank.account.domain.entity.Account;
 import com.microbank.account.domain.repository.IAccountRepository;
 import com.microbank.account.domain.valueobject.Id;
 
-import static com.microbank.account.application.exception.NotFoundException.*;
+import static com.microbank.account.application.exception.ApplicationException.*;
 
 public class GetAccountService implements IGetAccountService {
     private final IAccountRepository accountRepository;

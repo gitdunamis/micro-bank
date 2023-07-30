@@ -1,4 +1,4 @@
-package com.microbank.account.api.controller.dto;
+package com.microbank.account.api.dto;
 
 import com.microbank.account.domain.entity.Account;
 

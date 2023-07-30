@@ -6,7 +6,6 @@ import lombok.Getter;
 
 @Getter
 @EqualsAndHashCode(callSuper = true)
-@AllArgsConstructor
 public class UserEntity extends Entity {
     String name;
 
