@@ -6,8 +6,8 @@ import com.microbank.account.domain.repository.IAccountRepository;
 import com.microbank.account.domain.repository.IUserRepository;
 import com.microbank.account.infrastructure.db.repository.AccountRepository;
 import com.microbank.account.infrastructure.db.repository.UserRepository;
-import com.microbank.account.infrastructure.db.repository.entity.AccountEntity;
-import com.microbank.account.infrastructure.db.repository.entity.UserEntity;
+import com.microbank.account.infrastructure.db.entity.AccountEntity;
+import com.microbank.account.infrastructure.db.entity.UserEntity;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 

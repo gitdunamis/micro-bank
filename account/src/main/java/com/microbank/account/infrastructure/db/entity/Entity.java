@@ -1,4 +1,4 @@
-package com.microbank.account.infrastructure.db.repository.entity;
+package com.microbank.account.infrastructure.db.entity;
 
 import lombok.Data;
 

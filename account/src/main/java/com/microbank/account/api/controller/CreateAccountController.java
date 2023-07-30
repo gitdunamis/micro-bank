@@ -19,11 +19,10 @@ public class CreateAccountController {
         this.createAccountService = createAccountService;
     }
 
-    @PostMapping
-    public ResponseEntity<CreateAccountResponse> createAccount(@Valid CreateAccountRequest request) {
+    @PostMapping("/")
+    public ResponseEntity<CreateAccountResponse> createAccount(@RequestBody @Valid CreateAccountRequest request) {
 
         createAccountService.create(new CreateAccountCommand(request.userId(), request.type()));
-
 
         return ResponseEntity.created( URI.create("")).body(CreateAccountResponse.success());
     }

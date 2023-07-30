@@ -4,7 +4,7 @@ import com.microbank.account.domain.entity.User;
 import com.microbank.account.domain.repository.IUserRepository;
 import com.microbank.account.domain.valueobject.Id;
 import com.microbank.account.domain.valueobject.Name;
-import com.microbank.account.infrastructure.db.repository.entity.UserEntity;
+import com.microbank.account.infrastructure.db.entity.UserEntity;
 
 import java.util.Map;
 import java.util.Optional;

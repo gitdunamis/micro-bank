@@ -2,9 +2,11 @@ package com.microbank.account.api;
 
 import com.microbank.account.api.dto.Status;
 import com.microbank.account.application.exception.ApplicationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -12,6 +14,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class ApiAdvice extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ApplicationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<Object> handleApplicationException(ApplicationException exception) {
         Error resp = switch (exception) {
             case  ApplicationException.AccountNotFoundException e -> new Error(Status.ACCOUNT_DOES_NOT_EXIST, e.getMessage());
