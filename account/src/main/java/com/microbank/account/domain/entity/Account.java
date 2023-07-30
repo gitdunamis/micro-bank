@@ -5,6 +5,8 @@ import com.microbank.account.domain.valueobject.UserId;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.Objects;
+
 @AllArgsConstructor
 public class Account {
     Id id;
@@ -12,6 +14,18 @@ public class Account {
     @Getter final UserId userId;
 
     @Getter final AccountType type;
+
+    public Account(UserId userId, AccountType accountType) {
+        Objects.requireNonNull(userId);
+        Objects.requireNonNull(accountType);
+
+        this.userId = userId;
+        this.type = accountType;
+    }
+
+    public static Account from(long userId, AccountType accountType) {
+        return new Account(new UserId(userId), accountType);
+    }
 
     public enum AccountType {
         CURRENT, SAVINGS

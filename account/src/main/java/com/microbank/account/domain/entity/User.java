@@ -10,4 +10,13 @@ import lombok.Getter;
 public class User {
     Id id;
     @Getter Name name;
+
+    private User(Name name) {
+        this.name = name;
+    }
+
+
+    public static User newFromName(String name) {
+        return new User(new Name(name));
+    }
 }
