@@ -21,6 +21,12 @@ public class Transaction {
         this.amount = amount;
     }
 
+    public Transaction(AccountId accountId, TransactionType type, Amount amount) {
+        this.accountId = accountId;
+        this.type = type;
+        this.amount = amount;
+    }
+
     public enum TransactionType {
         CREDIT, DEBIT
     }

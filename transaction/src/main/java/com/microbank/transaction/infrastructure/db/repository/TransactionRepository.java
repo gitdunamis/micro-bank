@@ -9,13 +9,14 @@ import com.microbank.transaction.infrastructure.db.entity.TransactionEntity;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class TransactionRepository implements ITransactionRepository {
 
-    private final HashMap<Long, TransactionEntity> database;
+    private final Map<Long, TransactionEntity> database;
 
-    public TransactionRepository(HashMap<Long, TransactionEntity> database) {
+    public TransactionRepository(Map<Long, TransactionEntity> database) {
         Objects.requireNonNull(database);
         this.database = database;
     }

@@ -14,4 +14,9 @@ public class Balance {
     Id id;
     AccountId accountId;
     Amount value;
+
+    public Balance(AccountId accountId, Amount amount) {
+        this.accountId = accountId;
+        this.value = amount;
+    }
 }

@@ -26,5 +26,8 @@ public class CreateAccountService implements ICreateAccountService{
         Account account = Account.from(user.getId().id(), accountType);
 
         accountRepository.create(account);
+
+        //fund account
+
     }
 }
