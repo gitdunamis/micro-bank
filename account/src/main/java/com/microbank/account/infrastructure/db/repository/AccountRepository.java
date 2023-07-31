@@ -4,7 +4,7 @@ import com.microbank.account.domain.entity.Account;
 import com.microbank.account.domain.repository.IAccountRepository;
 import com.microbank.account.domain.valueobject.Id;
 import com.microbank.account.domain.valueobject.UserId;
-import com.microbank.account.infrastructure.db.repository.entity.AccountEntity;
+import com.microbank.account.infrastructure.db.entity.AccountEntity;
 
 import java.util.Map;
 import java.util.Optional;
@@ -32,6 +32,14 @@ public class AccountRepository implements IAccountRepository {
 
         long entityId = ++id;
         AccountEntity entity = new AccountEntity(account.getUserId().id(), account.getType(), entityId);
+        account.addId(new Id(entityId));
         database.put(entityId, entity);
+    }
+
+    @Override
+    public void delete(Account account) {
+        long id = account.getId().id();
+
+        database.remove(id);
     }
 }

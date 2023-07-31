@@ -9,4 +9,6 @@ public interface IAccountRepository {
     Optional<Account> find(Id id);
 
     void create(Account account);
+
+    void delete(Account account);
 }

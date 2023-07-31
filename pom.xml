@@ -9,12 +9,15 @@
   <url>http://maven.apache.org</url>
 
   <properties>
-    <java.version>20</java.version>
+    <maven.compiler.source>20</maven.compiler.source>
+    <maven.compiler.target>20</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <compiler-plugin.version>3.11.0</compiler-plugin.version>
   </properties>
 
   <modules>
     <module>account</module>
+    <module>transaction</module>
   </modules>
 
 </project>

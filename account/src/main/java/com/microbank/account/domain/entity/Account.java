@@ -7,6 +7,7 @@ import lombok.Getter;
 
 import java.util.Objects;
 
+@Getter
 @AllArgsConstructor
 public class Account {
     Id id;
@@ -25,6 +26,10 @@ public class Account {
 
     public static Account from(long userId, AccountType accountType) {
         return new Account(new UserId(userId), accountType);
+    }
+
+    public void addId(Id id) {
+        this.id = id;
     }
 
     public enum AccountType {

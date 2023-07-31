@@ -1,15 +1,17 @@
 package com.microbank.account.api.controller;
 
-import com.microbank.account.api.controller.dto.CreateAccountRequest;
-import com.microbank.account.api.controller.dto.CreateAccountResponse;
+import com.microbank.account.api.dto.CreateAccountRequest;
+import com.microbank.account.api.dto.CreateAccountResponse;
 import com.microbank.account.application.ICreateAccountService;
 import com.microbank.account.application.command.CreateAccountCommand;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
 @RestController
+@RequestMapping("/account")
 public class CreateAccountController {
     private final ICreateAccountService createAccountService;
 
@@ -17,11 +19,12 @@ public class CreateAccountController {
         this.createAccountService = createAccountService;
     }
 
-    public ResponseEntity<CreateAccountResponse> createAccount(CreateAccountRequest request) {
+    @PostMapping("/")
+    public ResponseEntity<CreateAccountResponse> createAccount(@RequestBody @Valid CreateAccountRequest request) {
 
-        createAccountService.create(new CreateAccountCommand(request.userId(), request.type()));
+        createAccountService.create(new CreateAccountCommand(request.userId(), request.type(), request.initialCredit()));
 
-
-        return ResponseEntity.created(new URI()).body(new CreateAccountResponse());
+        return ResponseEntity.created( URI.create("")).body(CreateAccountResponse.success());
     }
+
 }

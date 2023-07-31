@@ -1,6 +1,6 @@
 package com.microbank.account.application;
 
-import com.microbank.account.application.exception.UserNotFoundException;
+import com.microbank.account.application.exception.ApplicationException;
 import com.microbank.account.domain.entity.User;
 import com.microbank.account.domain.repository.IUserRepository;
 import com.microbank.account.domain.valueobject.Id;
@@ -17,6 +17,6 @@ public class GetUserService implements IGetUserService{
     public User getUser(GetUserQuery query) {
         long userId = query.getId();
 
-        return userRepository.find(new Id(userId)).orElseThrow(() -> new UserNotFoundException("User with id does not exist."));
+        return userRepository.find(new Id(userId)).orElseThrow(() -> new ApplicationException.UserNotFoundException("User with id does not exist."));
     }
 }
