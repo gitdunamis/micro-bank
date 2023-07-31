@@ -28,6 +28,10 @@ public class Account {
         return new Account(new UserId(userId), accountType);
     }
 
+    public void addId(Id id) {
+        this.id = id;
+    }
+
     public enum AccountType {
         CURRENT, SAVINGS
     }

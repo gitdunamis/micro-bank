@@ -8,14 +8,20 @@ import com.microbank.account.infrastructure.db.repository.AccountRepository;
 import com.microbank.account.infrastructure.db.repository.UserRepository;
 import com.microbank.account.infrastructure.db.entity.AccountEntity;
 import com.microbank.account.infrastructure.db.entity.UserEntity;
+import com.microbank.account.infrastructure.http.RemoteTransactionServiceRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Component
 public class AppBean {
+
+    @Value("${transactions.base.url}")
+    String transactionUrl;
 
     @Bean
     public IAccountRepository accountRepository() {
@@ -46,8 +52,13 @@ public class AppBean {
     }
 
     @Bean
-    public ICreateAccountService createAccountService(IAccountRepository accountRepository, IGetUserService getUserService) {
-        return new CreateAccountService(accountRepository, getUserService);
+    public ITransactionFunder transactionFunder() {
+        return new RemoteTransactionServiceRepository(transactionUrl, new RestTemplate());
+    }
+
+    @Bean
+    public ICreateAccountService createAccountService(IAccountRepository accountRepository, IGetUserService getUserService, ITransactionFunder transactionFunder) {
+        return new CreateAccountService(accountRepository, getUserService, transactionFunder);
     }
 
     @Bean

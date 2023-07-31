@@ -22,13 +22,14 @@ public class CreateTransactionController {
     }
 
     @POST
-    public Response createTransaction(CreateTransactionRequest request) {
+    public BalanceResponse createTransaction(CreateTransactionRequest request) {
         Balance balance = transactionService.createTransaction(new CreateTransactionCommand(
                             request.customerId(), request.amount(), request.type()));
 
         BalanceResponse response = BalanceResponse.from(balance);
 
-        return Response.ok(balance, MediaType.APPLICATION_JSON_TYPE).build();
+        return response;
+//        return Response.ok(balance, MediaType.APPLICATION_JSON_TYPE).build();
     }
 
 }

@@ -22,7 +22,7 @@ public class CreateAccountController {
     @PostMapping("/")
     public ResponseEntity<CreateAccountResponse> createAccount(@RequestBody @Valid CreateAccountRequest request) {
 
-        createAccountService.create(new CreateAccountCommand(request.userId(), request.type()));
+        createAccountService.create(new CreateAccountCommand(request.userId(), request.type(), request.initialCredit()));
 
         return ResponseEntity.created( URI.create("")).body(CreateAccountResponse.success());
     }

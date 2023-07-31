@@ -3,10 +3,7 @@ package com.microbank.account.api.controller;
 import com.microbank.account.api.dto.CreateAccountRequest;
 import com.microbank.account.api.dto.CreateAccountResponse;
 import com.microbank.account.api.dto.Status;
-import com.microbank.account.application.CreateAccountService;
-import com.microbank.account.application.GetUserService;
-import com.microbank.account.application.ICreateAccountService;
-import com.microbank.account.application.IGetUserService;
+import com.microbank.account.application.*;
 import com.microbank.account.domain.entity.Account.AccountType;
 import com.microbank.account.domain.repository.IAccountRepository;
 import com.microbank.account.domain.repository.IUserRepository;
@@ -14,12 +11,15 @@ import com.microbank.account.infrastructure.db.repository.AccountRepository;
 import com.microbank.account.infrastructure.db.repository.UserRepository;
 import com.microbank.account.infrastructure.db.entity.AccountEntity;
 import com.microbank.account.infrastructure.db.entity.UserEntity;
+import com.microbank.account.infrastructure.http.RemoteTransactionServiceRepository;
 import org.assertj.core.api.Condition;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +31,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class AccountTest {
 
+    private final ITransactionFunder transactionFunder = new RemoteTransactionServiceRepository("baseurl", new RestTemplate());
+
     @DisplayName("Can create Account")
     @Test
     void canCreateAccount() {
@@ -38,7 +40,7 @@ class AccountTest {
         long userId = 3;
         String userName = "Third User";
         AccountType accountType = CURRENT;
-        CreateAccountRequest request = new CreateAccountRequest(userId, null);
+        CreateAccountRequest request = new CreateAccountRequest(userId, accountType, BigDecimal.ZERO);
 
         Map<Long, AccountEntity> accountDb = new HashMap<>(1);
         Map<Long, UserEntity> userDb = Collections.singletonMap(userId, new UserEntity(userId, userName));
@@ -46,7 +48,7 @@ class AccountTest {
         IAccountRepository accountRepo = new AccountRepository(accountDb);
         IUserRepository userRepo = new UserRepository(userDb);
         IGetUserService userService = new GetUserService(userRepo);
-        ICreateAccountService service = new CreateAccountService(accountRepo, userService);
+        ICreateAccountService service = new CreateAccountService(accountRepo, userService, transactionFunder);
         CreateAccountController controller = new CreateAccountController(service);
 
         //when
@@ -73,7 +75,7 @@ class AccountTest {
         long userId = 3;
         String userName = "Third User";
         AccountType accountType = CURRENT;
-        CreateAccountRequest request = new CreateAccountRequest(5, accountType);
+        CreateAccountRequest request = new CreateAccountRequest(5, accountType, BigDecimal.ZERO);
 
         Map<Long, AccountEntity> accountDb = new HashMap<>(1);
         Map<Long, UserEntity> userDb = Collections.singletonMap(userId, new UserEntity(userId, userName));
@@ -81,7 +83,7 @@ class AccountTest {
         IAccountRepository accountRepo = new AccountRepository(accountDb);
         IUserRepository userRepo = new UserRepository(userDb);
         IGetUserService userService = new GetUserService(userRepo);
-        ICreateAccountService service = new CreateAccountService(accountRepo, userService);
+        ICreateAccountService service = new CreateAccountService(accountRepo, userService, transactionFunder);
         CreateAccountController controller = new CreateAccountController(service);
 
 

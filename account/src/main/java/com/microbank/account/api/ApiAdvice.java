@@ -15,14 +15,19 @@ public class ApiAdvice extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ApplicationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<Object> handleApplicationException(ApplicationException exception) {
-        Error resp = switch (exception) {
-            case  ApplicationException.AccountNotFoundException e -> new Error(Status.ACCOUNT_DOES_NOT_EXIST, e.getMessage());
-            case ApplicationException.UserNotFoundException e -> new Error(Status.USER_DOES_NOT_EXIST, e.getMessage());
-        };
+    public ResponseEntity<Error> handleApplicationException(ApplicationException exception) {
 
-        return ResponseEntity.badRequest().body(resp);
+        return switch (exception) {
+            case  ApplicationException.AccountNotFoundException e ->
+                    ResponseEntity.badRequest().body(new Error(Status.ACCOUNT_DOES_NOT_EXIST, e.getMessage()));
+            case ApplicationException.UserNotFoundException e ->
+                    ResponseEntity.badRequest().body(new Error(Status.USER_DOES_NOT_EXIST, e.getMessage()));
+            case ApplicationException.AccountCreationFailedExecption e ->
+                    ResponseEntity.internalServerError().body(new Error(Status.INTERNAL_ERROR, e.getMessage()));
+        };
     }
 
-    record Error(Status status, String message){}
+
+
+    public record Error(Status status, String message){}
 }

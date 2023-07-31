@@ -32,6 +32,14 @@ public class AccountRepository implements IAccountRepository {
 
         long entityId = ++id;
         AccountEntity entity = new AccountEntity(account.getUserId().id(), account.getType(), entityId);
+        account.addId(new Id(entityId));
         database.put(entityId, entity);
+    }
+
+    @Override
+    public void delete(Account account) {
+        long id = account.getId().id();
+
+        database.remove(id);
     }
 }

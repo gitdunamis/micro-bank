@@ -15,4 +15,12 @@ public sealed abstract class ApplicationException extends RuntimeException {
             super(message);
         }
     }
+
+    public static final class AccountCreationFailedExecption extends ApplicationException {
+        public AccountCreationFailedExecption(String message) {
+            super(message);
+        }
+    }
+
+
 }
